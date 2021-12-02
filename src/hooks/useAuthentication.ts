@@ -24,7 +24,11 @@ const idTokenState = atom<string>({
   default: null,
 })
 
-export function useAuthentication() {
+type Args = {
+  shouldInitialize: boolean
+}
+
+export function useAuthentication(args: Args) {
   const [user, setUser] = useRecoilState(userState)
   const [idToken, setIdToken] = useRecoilState(idTokenState)
 
@@ -43,6 +47,10 @@ export function useAuthentication() {
   )
 
   const initialize = useCallback(async () => {
+    if (user || !args.shouldInitialize) {
+      return
+    }
+
     const auth = getAuth()
     const db = getFirestore()
 
@@ -73,6 +81,10 @@ export function useAuthentication() {
       })
 
     onAuthStateChanged(auth, async (firebaseUser) => {
+      if (user) {
+        return
+      }
+
       if (firebaseUser) {
         const idToken = await getIdToken(firebaseUser).catch(function (error) {
           console.error(error)
@@ -101,7 +113,7 @@ export function useAuthentication() {
         setUser(null)
       }
     })
-  }, [])
+  }, [user])
 
   useEffect(() => {
     initialize()

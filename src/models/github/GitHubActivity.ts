@@ -1,6 +1,12 @@
+export type GitHubActivityType =
+  | 'DeleteEvent'
+  | 'ForkEvent'
+  | 'PullRequestEvent'
+  | 'WatchEvent'
+
 export type GitHubActivity = {
   id: string
-  type: string
+  type: GitHubActivityType
   actor: {
     id: number
     login: string

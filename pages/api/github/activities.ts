@@ -5,6 +5,7 @@ import api from '@/middlewares/api'
 import { getUser } from '@/repositories/users_repository'
 import createGithubClient from '@/lib/github'
 import { GitHubActivitiesResponseData } from '@/models/response/github_response'
+import { GitHubActivity } from '@/models/github/GitHubActivity'
 
 const action = async (
   req: NextApiRequestWithUid,
@@ -18,7 +19,7 @@ const action = async (
     per_page: 100,
   })
 
-  res.status(200).json({ activities: activities.data })
+  res.status(200).json({ activities: activities.data as GitHubActivity[] })
 }
 
 export default api(action, 'GET')

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useColor } from '@/hooks/useColor'
 import { Box, Flex } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/react'
@@ -8,7 +7,7 @@ import { FaGithub } from 'react-icons/fa'
 import { useAuthentication } from '@/hooks/useAuthentication'
 
 export default function MypageHeader() {
-  const { user } = useAuthentication()
+  const { user } = useAuthentication({ shouldInitialize: false })
   const { primaryColor, primaryForegroundColor } = useColor()
 
   return (
