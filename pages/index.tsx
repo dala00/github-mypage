@@ -1,10 +1,20 @@
 import { useAuthentication } from '@/hooks/useAuthentication'
+import axios from 'axios'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const { signInWithGithub, user } = useAuthentication()
+  const { apiHeaders, signInWithGithub, user } = useAuthentication()
+
+  useEffect(() => {
+    if (!user) {
+      return
+    }
+
+    axios.get('/api/github/activities', apiHeaders)
+  }, [user])
 
   return (
     <div className={styles.container}>

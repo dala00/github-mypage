@@ -49,22 +49,24 @@ export function useAuthentication() {
     getRedirectResult(auth)
       .then(async (result) => {
         const credential = GithubAuthProvider.credentialFromResult(result)
-        const user: User = {
-          id: result.user.uid,
+        const user: Omit<User, 'id'> = {
           githubToken: credential.accessToken,
+          screenName: (result.user as any).reloadUserInfo.screenName,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
         }
         const addUserResult = await setDoc(
-          doc(db, Collections.users, user.id),
+          doc(db, Collections.users, result.user.uid),
           user
         ).catch((error) => {
           console.error(error)
           return false
         })
-        if (addUserResult === false) {
-          alert('エラーが発生しました。')
-          return
-        }
-        setUser(user)
+        // if (addUserResult === false) {
+        //   alert('エラーが発生しました。')
+        //   return
+        // }
+        setUser({ ...user, id: result.user.uid })
       })
       .catch((error) => {
         console.error(error)
