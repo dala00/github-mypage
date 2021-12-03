@@ -15,7 +15,9 @@ export default function MypageForkActivity(props: Props) {
       message={
         <>
           forked{' '}
-          <MypageActivityMessageLink href={props.activity.repo.url}>
+          <MypageActivityMessageLink
+            href={`https://github.com/${props.activity.repo.name}`}
+          >
             {props.activity.repo.name}
           </MypageActivityMessageLink>
         </>

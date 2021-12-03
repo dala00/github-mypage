@@ -30,7 +30,9 @@ export default function Home() {
       <MypageHeader />
 
       <Box as="main">
-        <MypageActivities />
+        <Box p={8}>
+          <MypageActivities />
+        </Box>
       </Box>
 
       <button type="button" onClick={signInWithGithub}>
