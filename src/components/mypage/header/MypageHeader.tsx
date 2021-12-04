@@ -1,6 +1,7 @@
 import { useColor } from '@/hooks/useColor'
-import { Box, Flex } from '@chakra-ui/layout'
+import { Box, Flex, Link } from '@chakra-ui/layout'
 import React from 'react'
+import NextLink from 'next/link'
 import { IconContext } from 'react-icons'
 import { FaGithub } from 'react-icons/fa'
 import { useAuthentication } from '@/hooks/useAuthentication'
@@ -23,11 +24,17 @@ export default function MypageHeader() {
     >
       <Flex alignItems="center">
         <Box mr={4}>
-          <IconContext.Provider value={{ size: '32px' }}>
-            <FaGithub />
-          </IconContext.Provider>
+          <NextLink href="/">
+            <Link>
+              <IconContext.Provider value={{ size: '32px' }}>
+                <FaGithub />
+              </IconContext.Provider>
+            </Link>
+          </NextLink>
         </Box>
-        <Box>Custom Mypage</Box>
+        <NextLink href="/commits">
+          <Link>Commits</Link>
+        </NextLink>
       </Flex>
       <Box>{user && <MypageHeaderUser />}</Box>
     </Flex>

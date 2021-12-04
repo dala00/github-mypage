@@ -11,7 +11,7 @@ import Head from 'next/head'
 import React, { useEffect } from 'react'
 
 export default function Home() {
-  const { signInWithGithub, user } = useAuthentication({
+  const { user } = useAuthentication({
     shouldInitialize: true,
   })
   const { initialize } = useMypage()
