@@ -4,6 +4,10 @@ export type GitHubActivityType =
   | 'PullRequestEvent'
   | 'WatchEvent'
 
+export type GitHubActivityWatchPayload = {
+  action: string
+}
+
 export type GitHubActivity = {
   id: string
   type: GitHubActivityType
