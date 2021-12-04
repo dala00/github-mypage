@@ -13,6 +13,11 @@ export type GitHubActivityDeletePayload = {
   ref_type: string
 }
 
+export type GitHubActivityPullRequestPayload = {
+  action: string
+  pull_request: { html_url: string; title: string }
+}
+
 export type GitHubActivity = {
   id: string
   type: GitHubActivityType

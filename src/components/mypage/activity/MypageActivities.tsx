@@ -3,6 +3,7 @@ import { Divider } from '@chakra-ui/layout'
 import React from 'react'
 import MypageDeleteActivity from './MypageDeleteActivity'
 import MypageForkActivity from './MypageForkActivity'
+import MypagePullRequestActivity from './MypagePullRequestActivity'
 import MypageWatchActivity from './MypageWatchActivity'
 
 export default function MypageActivities() {
@@ -19,6 +20,13 @@ export default function MypageActivities() {
           } else if (activity.type === 'DeleteEvent') {
             return (
               <MypageDeleteActivity key={activity.id} activity={activity} />
+            )
+          } else if (activity.type === 'PullRequestEvent') {
+            return (
+              <MypagePullRequestActivity
+                key={activity.id}
+                activity={activity}
+              />
             )
           }
           return <>{activity.type}</>
