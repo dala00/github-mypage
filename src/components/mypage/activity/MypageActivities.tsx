@@ -3,6 +3,7 @@ import { Divider } from '@chakra-ui/layout'
 import React from 'react'
 import MypageDeleteActivity from './MypageDeleteActivity'
 import MypageForkActivity from './MypageForkActivity'
+import MypageIssueCommentActivity from './MypageIssueCommentActivity'
 import MypagePullRequestActivity from './MypagePullRequestActivity'
 import MypageWatchActivity from './MypageWatchActivity'
 
@@ -15,11 +16,16 @@ export default function MypageActivities() {
         .map((activity) => {
           if (activity.type === 'ForkEvent') {
             return <MypageForkActivity key={activity.id} activity={activity} />
-          } else if (activity.type === 'WatchEvent') {
-            return <MypageWatchActivity key={activity.id} activity={activity} />
           } else if (activity.type === 'DeleteEvent') {
             return (
               <MypageDeleteActivity key={activity.id} activity={activity} />
+            )
+          } else if (activity.type === 'IssueCommentEvent') {
+            return (
+              <MypageIssueCommentActivity
+                key={activity.id}
+                activity={activity}
+              />
             )
           } else if (activity.type === 'PullRequestEvent') {
             return (
@@ -28,6 +34,8 @@ export default function MypageActivities() {
                 activity={activity}
               />
             )
+          } else if (activity.type === 'WatchEvent') {
+            return <MypageWatchActivity key={activity.id} activity={activity} />
           }
           return <>{activity.type}</>
         })
