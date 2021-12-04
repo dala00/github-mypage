@@ -44,10 +44,10 @@ export default function MypageActivities() {
           }
           return <>{activity.type}</>
         })
-        .map((element) => (
+        .map((element, index) => (
           <>
             {element}
-            <Divider my={4} />
+            <Divider key={index} my={4} />
           </>
         ))}
     </>

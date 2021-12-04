@@ -21,11 +21,14 @@ export default function MypageHeader() {
       justifyContent="space-between"
       height={mypageHeaderHeight}
     >
-      <Box>
-        <IconContext.Provider value={{ size: '32px' }}>
-          <FaGithub />
-        </IconContext.Provider>
-      </Box>
+      <Flex alignItems="center">
+        <Box mr={4}>
+          <IconContext.Provider value={{ size: '32px' }}>
+            <FaGithub />
+          </IconContext.Provider>
+        </Box>
+        <Box>Custom Mypage</Box>
+      </Flex>
       <Box>{user && <MypageHeaderUser />}</Box>
     </Flex>
   )

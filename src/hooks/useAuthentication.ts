@@ -25,6 +25,11 @@ const idTokenState = atom<string>({
   default: null,
 })
 
+const isInitializedState = atom<boolean>({
+  key: 'authentication/isInitialized',
+  default: false,
+})
+
 type Args = {
   shouldInitialize: boolean
 }
@@ -32,6 +37,7 @@ type Args = {
 export function useAuthentication(args: Args) {
   const [user, setUser] = useRecoilState(userState)
   const [idToken, setIdToken] = useRecoilState(idTokenState)
+  const [isInitialized, setIsInitialized] = useRecoilState(isInitializedState)
 
   const generateApiHeaders = useCallback(
     (token: string): AxiosRequestConfig => ({
@@ -112,7 +118,9 @@ export function useAuthentication(args: Args) {
         setIdToken(idToken)
       } else {
         setUser(null)
+        setIdToken(null)
       }
+      setIsInitialized(true)
     })
   }, [user])
 
@@ -128,13 +136,16 @@ export function useAuthentication(args: Args) {
     signInWithRedirect(auth, provider)
   }, [])
 
-  const signOutFromApp = useCallback(() => {
+  const signOutFromApp = useCallback(async () => {
     const auth = getAuth()
-    signOut(auth)
+    await signOut(auth)
+    setUser(null)
+    setIdToken(null)
   }, [])
 
   return {
     apiHeaders,
+    isInitialized,
     setUser,
     signInWithGithub,
     signOut: signOutFromApp,
