@@ -40,9 +40,6 @@ export default function Home() {
           overflowY="scroll"
           p={8}
         >
-          <Heading as="h6" size="xs" mb={4}>
-            Repositories
-          </Heading>
           <MypageRepositories />
         </Box>
         <Box p={8}>
