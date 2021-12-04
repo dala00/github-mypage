@@ -17,6 +17,7 @@ const action = async (
   const repositoriesResult = await client.repos.listForAuthenticatedUser({
     sort: 'updated',
     direction: 'desc',
+    visibility: 'all',
     per_page: 100,
   })
 

@@ -14,10 +14,11 @@ const action = async (
   const user = await getUser(req.uid)
   const client = createGithubClient(user.githubToken)
 
-  const activitiesResult = await client.activity.listReceivedEventsForUser({
-    username: user.screenName,
-    per_page: 100,
-  })
+  const activitiesResult =
+    await client.activity.listReceivedPublicEventsForUser({
+      username: user.screenName,
+      per_page: 100,
+    })
 
   const activities = (activitiesResult.data as GitHubActivity[]).filter(
     (activity) => activity.actor.login.indexOf('[bot]') === -1

@@ -123,6 +123,7 @@ export function useAuthentication(args: Args) {
     const auth = getAuth()
     const provider = new GithubAuthProvider()
     provider.addScope('read:user')
+    provider.addScope('repo')
     signInWithRedirect(auth, provider)
   }, [])
 
