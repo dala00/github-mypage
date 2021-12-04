@@ -21,7 +21,11 @@ const action = async (
     per_page: 100,
   })
 
-  const commits = commitsResult.data.items as unknown as GitHubCommit[]
+  const commits = (
+    commitsResult.data.items as unknown as GitHubCommit[]
+  ).filter(
+    (commit) => !user.ignoreCommitRepositoryIds.includes(commit.repository.id)
+  )
 
   res.status(200).json({ commits })
 }

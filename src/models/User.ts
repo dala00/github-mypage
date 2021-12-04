@@ -4,4 +4,5 @@ export type User = {
   screenName: string
   displayName: string | null
   photoURL: string
+  ignoreCommitRepositoryIds: number[]
 }

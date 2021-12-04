@@ -69,6 +69,7 @@ export function useAuthentication(args: Args) {
           screenName: (result.user as any).reloadUserInfo.screenName,
           displayName: result.user.displayName,
           photoURL: result.user.photoURL,
+          ignoreCommitRepositoryIds: [],
         }
         const addUserResult = await setDoc(
           doc(db, Collections.users, result.user.uid),

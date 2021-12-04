@@ -13,6 +13,7 @@ export type GitHubCommit = {
   repository: {
     full_name: string
     html_url: string
+    id: number
   }
   sha: string
 }

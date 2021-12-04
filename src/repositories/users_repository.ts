@@ -13,3 +13,7 @@ export async function getUser(uid: string): Promise<User> {
     id: doc.id,
   }
 }
+
+export async function updateUser(uid: string, data: Partial<User>) {
+  await usersCollection().doc(uid).update(data)
+}
