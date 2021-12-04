@@ -1,6 +1,7 @@
 import { useMypage } from '@/hooks/useMypage'
 import { Divider } from '@chakra-ui/layout'
 import React from 'react'
+import MypageCreateActivity from './MypageCreateActivity'
 import MypageDeleteActivity from './MypageDeleteActivity'
 import MypageForkActivity from './MypageForkActivity'
 import MypageIssueCommentActivity from './MypageIssueCommentActivity'
@@ -16,6 +17,10 @@ export default function MypageActivities() {
         .map((activity) => {
           if (activity.type === 'ForkEvent') {
             return <MypageForkActivity key={activity.id} activity={activity} />
+          } else if (activity.type === 'CreateEvent') {
+            return (
+              <MypageCreateActivity key={activity.id} activity={activity} />
+            )
           } else if (activity.type === 'DeleteEvent') {
             return (
               <MypageDeleteActivity key={activity.id} activity={activity} />

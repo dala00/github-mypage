@@ -1,6 +1,6 @@
 import {
   GitHubActivity,
-  GitHubActivityIssueCommentPayload,
+  GitHubActivityDeletePayload,
 } from '@/models/github/GitHubActivity'
 import React from 'react'
 import MypageActivityContainer from './MypageActivityContainer'
@@ -10,18 +10,15 @@ type Props = {
   activity: GitHubActivity
 }
 
-export default function MypageIssueCommentActivity(props: Props) {
-  const payload = props.activity.payload as GitHubActivityIssueCommentPayload
+export default function MypageCreateActivity(props: Props) {
+  const payload = props.activity.payload as GitHubActivityDeletePayload
 
   return (
     <MypageActivityContainer
       activity={props.activity}
       message={
         <>
-          comment {payload.action} on
-          <MypageActivityMessageLink href={payload.comment.html_url}>
-            {payload.issue.title}
-          </MypageActivityMessageLink>
+          created {payload.ref_type} {payload.ref}{' '}
           <MypageActivityMessageLink
             href={`https://github.com/${props.activity.repo.name}`}
           >

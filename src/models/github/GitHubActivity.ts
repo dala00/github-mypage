@@ -1,9 +1,15 @@
 export type GitHubActivityType =
+  | 'CreateEvent'
   | 'DeleteEvent'
   | 'ForkEvent'
   | 'IssueCommentEvent'
   | 'PullRequestEvent'
   | 'WatchEvent'
+
+export type GitHubActivityCreatePayload = {
+  ref: string
+  ref_type: string
+}
 
 export type GitHubActivityDeletePayload = {
   ref: string
