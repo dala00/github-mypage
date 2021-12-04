@@ -48,11 +48,6 @@ export default function Home() {
         <Box p={8}>
           <MypageActivities />
         </Box>
-
-        <button type="button" onClick={signInWithGithub}>
-          signin with github
-        </button>
-        {user?.id}
       </Box>
 
       <footer></footer>

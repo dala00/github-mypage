@@ -29,6 +29,7 @@ export default function MypageActivityContainer(props: Props) {
               alt=""
               width={iconSize}
               height={iconSize}
+              borderRadius="50%"
             />
           </Link>
         </Box>
