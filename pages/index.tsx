@@ -1,8 +1,11 @@
 import MypageActivities from '@/components/mypage/activity/MypageActivities'
-import MypageHeader from '@/components/mypage/MypageHeader'
+import MypageHeader, {
+  mypageHeaderHeight,
+} from '@/components/mypage/MypageHeader'
+import MypageRepositories from '@/components/mypage/MypageRepositories'
 import { useAuthentication } from '@/hooks/useAuthentication'
 import { useMypage } from '@/hooks/useMypage'
-import { Box } from '@chakra-ui/layout'
+import { Box, Heading } from '@chakra-ui/layout'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
 
@@ -29,16 +32,28 @@ export default function Home() {
 
       <MypageHeader />
 
-      <Box as="main">
+      <Box as="main" display="flex">
+        <Box
+          background="white"
+          width="310px"
+          height={`calc(100vh - ${mypageHeaderHeight})`}
+          overflowY="scroll"
+          p={8}
+        >
+          <Heading as="h6" size="xs" mb={4}>
+            Repositories
+          </Heading>
+          <MypageRepositories />
+        </Box>
         <Box p={8}>
           <MypageActivities />
         </Box>
-      </Box>
 
-      <button type="button" onClick={signInWithGithub}>
-        signin with github
-      </button>
-      {user?.id}
+        <button type="button" onClick={signInWithGithub}>
+          signin with github
+        </button>
+        {user?.id}
+      </Box>
 
       <footer></footer>
     </Box>
