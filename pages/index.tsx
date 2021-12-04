@@ -1,11 +1,11 @@
 import MypageActivities from '@/components/mypage/activity/MypageActivities'
 import MypageHeader, {
   mypageHeaderHeight,
-} from '@/components/mypage/MypageHeader'
+} from '@/components/mypage/header/MypageHeader'
 import MypageRepositories from '@/components/mypage/MypageRepositories'
 import { useAuthentication } from '@/hooks/useAuthentication'
 import { useMypage } from '@/hooks/useMypage'
-import { Box, Heading } from '@chakra-ui/layout'
+import { Box } from '@chakra-ui/layout'
 import Head from 'next/head'
 import React, { useEffect } from 'react'
 

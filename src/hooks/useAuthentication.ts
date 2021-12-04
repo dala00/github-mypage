@@ -10,6 +10,7 @@ import {
   getRedirectResult,
   getIdToken,
   onAuthStateChanged,
+  signOut,
 } from 'firebase/auth'
 import { useCallback, useEffect, useMemo } from 'react'
 import { atom, useRecoilState } from 'recoil'
@@ -127,5 +128,16 @@ export function useAuthentication(args: Args) {
     signInWithRedirect(auth, provider)
   }, [])
 
-  return { apiHeaders, setUser, signInWithGithub, user }
+  const signOutFromApp = useCallback(() => {
+    const auth = getAuth()
+    signOut(auth)
+  }, [])
+
+  return {
+    apiHeaders,
+    setUser,
+    signInWithGithub,
+    signOut: signOutFromApp,
+    user,
+  }
 }
