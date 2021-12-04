@@ -8,6 +8,11 @@ export type GitHubActivityWatchPayload = {
   action: string
 }
 
+export type GitHubActivityDeletePayload = {
+  ref: string
+  ref_type: string
+}
+
 export type GitHubActivity = {
   id: string
   type: GitHubActivityType
