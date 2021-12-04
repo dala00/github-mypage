@@ -14,12 +14,16 @@ const action = async (
   const user = await getUser(req.uid)
   const client = createGithubClient(user.githubToken)
 
-  const activities = await client.activity.listReceivedEventsForUser({
+  const activitiesResult = await client.activity.listReceivedEventsForUser({
     username: user.screenName,
     per_page: 100,
   })
 
-  res.status(200).json({ activities: activities.data as GitHubActivity[] })
+  const activities = (activitiesResult.data as GitHubActivity[]).filter(
+    (activity) => activity.actor.login.indexOf('[bot]') === -1
+  )
+
+  res.status(200).json({ activities })
 }
 
 export default api(action, 'GET')
