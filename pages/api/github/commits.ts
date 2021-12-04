@@ -7,10 +7,15 @@ import createGithubClient from '@/lib/github'
 import { GitHubCommit } from '@/models/github/GitHubCommit'
 import { GitHubCommitsResponseData } from '@/models/response/github_response'
 
+type Query = {
+  page: string
+}
+
 const action = async (
   req: NextApiRequestWithUid,
   res: NextApiResponse<GitHubCommitsResponseData>
 ) => {
+  const { page } = req.query as Query
   const user = await getUser(req.uid)
   const client = createGithubClient(user.githubToken)
 
@@ -19,6 +24,7 @@ const action = async (
     sort: 'committer-date',
     direction: 'desc',
     per_page: 100,
+    page: Number(page),
   })
 
   const commits = (

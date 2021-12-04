@@ -11,6 +11,7 @@ import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import React, { useCallback, useEffect, useState } from 'react'
 import { MdClose } from 'react-icons/md'
+import InfiniteScroll from 'react-infinite-scroller'
 
 export default function CommitsPage() {
   const router = useRouter()
@@ -19,15 +20,27 @@ export default function CommitsPage() {
   })
   const [commits, setCommits] = useState<GitHubCommit[]>([])
   const [isLoaded, setIsLoaded] = useState(false)
+  const [hasMore, setHasMore] = useState(true)
+
+  const fetchCommits = useCallback(
+    async (page: number) => {
+      const result = await axios.get<GitHubCommitsResponseData>(
+        `/api/github/commits?page=${page}`,
+        apiHeaders
+      )
+      if (result.data.commits.length === 0) {
+        setHasMore(false)
+        return
+      }
+      setCommits([...commits, ...result.data.commits])
+    },
+    [commits, user]
+  )
 
   const initialize = useCallback(async () => {
-    const result = await axios.get<GitHubCommitsResponseData>(
-      '/api/github/commits',
-      apiHeaders
-    )
-    setCommits(result.data.commits)
+    await fetchCommits(1)
     setIsLoaded(true)
-  }, [user])
+  }, [commits, user])
 
   useEffect(() => {
     if (!user) {
@@ -81,7 +94,16 @@ export default function CommitsPage() {
 
       <Container>
         {isLoaded ? (
-          <>
+          <InfiniteScroll
+            pageStart={1}
+            loadMore={fetchCommits}
+            hasMore={hasMore}
+            loader={
+              <Box textAlign="center">
+                <Spinner />
+              </Box>
+            }
+          >
             {commits.map((commit) => (
               <Collapse
                 key={commit.sha}
@@ -147,7 +169,7 @@ export default function CommitsPage() {
                 </Box>
               </Collapse>
             ))}
-          </>
+          </InfiniteScroll>
         ) : (
           <Box m={16} textAlign="center">
             <Spinner />
