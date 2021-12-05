@@ -11,17 +11,17 @@ import Head from 'next/head'
 import React, { useEffect } from 'react'
 
 export default function Home() {
-  const { user } = useAuthentication({
+  const { isInitialized, user } = useAuthentication({
     shouldInitialize: true,
   })
   const { initialize } = useMypage()
 
   useEffect(() => {
-    if (!user) {
+    if (!user || !isInitialized) {
       return
     }
     initialize()
-  }, [user])
+  }, [isInitialized, !!user])
 
   return (
     <Box background="#F6F8FA" height="100vh">

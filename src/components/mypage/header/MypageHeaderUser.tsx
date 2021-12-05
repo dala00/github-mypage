@@ -69,8 +69,8 @@ export default function MypageHeaderUser() {
           <Link href="https://github.com/settings/profile">Settings</Link>
         </MypageHeaderMenuItem>
         <MenuDivider />
-        <MypageHeaderMenuItem>
-          <Link onClick={onSignOut}>Sign out</Link>
+        <MypageHeaderMenuItem onClick={onSignOut}>
+          Sign out
         </MypageHeaderMenuItem>
       </MenuList>
     </Menu>
